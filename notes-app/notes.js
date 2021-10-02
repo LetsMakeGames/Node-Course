@@ -33,9 +33,9 @@ const addNote = function (title, note) {
             note: note
         })
         saveNotes(notes)
-        console.log('New note added!')
+        console.log(chalk.green.inverse('New note added!'))
     } else {
-        console.log("Duplicate title detected, please avoid duplicates")
+        console.log(chalk.red.inverse("Duplicate title detected, please avoid duplicates"))
     }
 
 
