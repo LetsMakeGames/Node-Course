@@ -35,10 +35,12 @@ const saveNotes = function(notes) {
 
 const loadNotes = function() {
     try {
+        // Read notes from file and return a parsed JS object.
         const dataBuffer = fs.readFileSync('notes.json')
         const dataJSON = dataBuffer.toString()
         return JSON.parse(dataJSON)
     } catch(error) {
+        // Return an empty array if no notes exist.
         return []
     }
 
