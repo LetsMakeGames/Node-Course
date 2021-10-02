@@ -1,4 +1,5 @@
 const fs = require('fs')
+const chalk = require('chalk')
 
 // A function that gets your current notes.
 const getNotes = function () {
@@ -34,7 +35,7 @@ const addNote = function (title, note) {
         saveNotes(notes)
         console.log('New note added!')
     } else {
-        console.log("Duplicate detected, please don't duplicate note titles!")
+        console.log("Duplicate title detected, please avoid duplicates")
     }
 
 
@@ -50,9 +51,15 @@ const removeNote = function (title) {
     const cleanedNotes = notes.filter(function (note) {
         return note.title !== title
     })
+
+    if (cleanedNotes.length != notes.length) {
+        saveNotes(cleanedNotes)
+        console.log(chalk.green.inverse(title + ' removed!'))
+    } else {
+        console.log(chalk.red.inverse('No matching note found, notes unchanged'))
+    }
     
-    saveNotes(cleanedNotes)
-    console.log(title + ' removed!')
+
 
 
 }
