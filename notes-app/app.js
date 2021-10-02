@@ -70,7 +70,7 @@ yargs.command({
     command: 'list',
     describe: 'Lists available notes by title',
     handler() {
-        console.log('Note1, Note2, Note3')
+        notes.listNotes()
     }
 })
 
