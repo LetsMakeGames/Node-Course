@@ -1,14 +1,28 @@
 const fs = require('fs')
 
 // A function that gets your current notes.
-const getNotes = function() {
+const getNotes = function () {
     notes = 'Your notes...'
     return notes;
 }
 
-const addNotes = function(title, note) {
+const loadNotes = function () {
+    try {
+        // Read notes from file and return a parsed JS object.
+        const dataBuffer = fs.readFileSync('notes.json')
+        const dataJSON = dataBuffer.toString()
+        return JSON.parse(dataJSON)
+    } catch(error) {
+        // Return an empty array if no notes exist.
+        return []
+    }
+
+
+}
+
+const addNote = function (title, note) {
     const notes = loadNotes()
-    const duplicateNotes = notes.filter(function(note) {
+    const duplicateNotes = notes.filter(function (note) {
         return note.title === title
     })
 
@@ -24,30 +38,23 @@ const addNotes = function(title, note) {
     }
 
 
-
-
 }
 
-const saveNotes = function(notes) {
+const saveNotes = function (notes) {
     const dataJSON = JSON.stringify(notes)
     fs.writeFileSync('notes.json', dataJSON)
 }
 
-const loadNotes = function() {
-    try {
-        // Read notes from file and return a parsed JS object.
-        const dataBuffer = fs.readFileSync('notes.json')
-        const dataJSON = dataBuffer.toString()
-        return JSON.parse(dataJSON)
-    } catch(error) {
-        // Return an empty array if no notes exist.
-        return []
-    }
-
+const removeNote = function (title) {
+    console.log('Removing ' + title)
+    const notes = loadNotes()
 
 }
 
+
+
 module.exports = {
     getNotes: getNotes,
-    addNotes: addNotes
+    addNote: addNote,
+    removeNote: removeNote
 }
