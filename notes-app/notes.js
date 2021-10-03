@@ -1,12 +1,6 @@
 const fs = require('fs')
 const chalk = require('chalk')
 
-// A function that gets your current notes.
-const getNotes = () => {
-    notes = 'Your notes...'
-    return notes;
-}
-
 const loadNotes = () => {
     try {
         // Read notes from file and return a parsed JS object.
@@ -65,9 +59,21 @@ const listNotes = () => {
     }
 }
 
+const readNote = (title) => {
+    const notes = loadNotes()
+    const foundNote = notes.find(note => title === note.title)
+    
+    if (typeof foundNote !== 'undefined') {
+        console.log(chalk.green.inverse(title + ' note found'))
+        console.log('Printing note: ' + foundNote.note)
+    } else {
+        console.log(chalk.red.inverse('No note found with that title'))
+    }
+}
+
 module.exports = {
-    getNotes: getNotes,
     addNote: addNote,
     removeNote: removeNote,
-    listNotes: listNotes
+    listNotes: listNotes,
+    readNote: readNote
 }
