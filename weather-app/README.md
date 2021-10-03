@@ -8,6 +8,11 @@ You can provide a location descriptor such as zip, state, city, or address and t
 
 # Usage
 
-1. node app.js
-2. Input location information: zip, state, city, address.
-3. Receive current weather
+1. Open a terminal to the app directory
+2. Run npm install to get required packages
+2. Get API Tokens from Weatherstack and Mapbox
+2. Update .env-example with your tokens
+3. Rename .env-exmaple to .env
+2. From your app direction, run node app.js
+3. Input location information: zip, state, city, address.
+4. Receive current weather
