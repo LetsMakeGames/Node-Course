@@ -1,7 +1,7 @@
 const weatherToken = process.env.WEATHER_API_ACCESS_TOKEN
 const request = require('postman-request')
 
-weatherRequest = (longitude, latitude) => {
+const weatherRequest = (longitude, latitude) => {
 
     const weatherURL = `http://api.weatherstack.com/current?access_key=${weatherToken}&query=${latitude},${longitude}&units=f`
 

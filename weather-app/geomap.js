@@ -14,7 +14,7 @@ while (input === '') {
 const location = encodeURIComponent(input)
 const geoURL = `https://api.mapbox.com/geocoding/v5/mapbox.places/${location}.json?access_token=${geoToken}&limit=1`
 
-geoRequest = () => {
+const geoRequest = () => {
 
     request({ url: geoURL, json: true }, (error, response) => {
 
