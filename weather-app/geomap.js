@@ -19,7 +19,7 @@ geoRequest = () => {
     request({ url: geoURL, json: true }, (error, response) => {
 
         if (error) {
-            console.log('Issue connecting to weatherstack API')
+            console.log('Issue connecting to mapbox API')
             console.log('Error Code: ' + error.code)
             console.log('Error: ' + error)
         } else if (response.body.error) {
