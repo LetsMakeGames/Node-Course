@@ -1,6 +1,7 @@
 const weatherToken = process.env.WEATHER_API_ACCESS_TOKEN
 const request = require('postman-request')
 
+// Get the current weather in an area based on longitude and latitude.
 const weatherRequest = (longitude, latitude, callback) => {
 
     const weatherURL = `http://api.weatherstack.com/current?access_key=${weatherToken}&query=${latitude},${longitude}&units=f`
@@ -10,8 +11,7 @@ const weatherRequest = (longitude, latitude, callback) => {
         if (error) {
             console.log('Issue connecting to weatherstack API')
             console.log('Error Code: ' + error.code)
-            console.log('Error: ' + error.error)
-            
+            console.log('Error: ' + error.error)            
         } else if (response.body.error) {
             console.log('Status Code: ' + response.body.error.code)
             console.log('Error: ' + response.body.error.info)

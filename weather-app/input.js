@@ -4,7 +4,8 @@ const chalk = require('chalk')
 const getInput = (callback) => {
 
     let input = prompt('Please enter your location: ')
-
+    
+    // prompt user for input while input is empty
     while (input === '') {
         console.log(chalk.red.inverse('A location is required') + '\n')
         input = prompt('Please enter your location: ')
