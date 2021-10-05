@@ -1,7 +1,7 @@
 require('dotenv').config()
 const input = require('./input')
-const geomap = require('./geomap-callback')
-const weather = require('./weather-callback')
+const geomap = require('./geomap')
+const weather = require('./weather')
 
 // Get users location input
 input.getInput((location) => {
