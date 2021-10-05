@@ -1,7 +1,7 @@
 const weatherToken = process.env.WEATHER_API_ACCESS_TOKEN
 const request = require('postman-request')
 
-const weatherRequest = (longitude, latitude, callback) => {
+const weatherRequest = (longitude, latitude) => {
 
     const weatherURL = `http://api.weatherstack.com/current?access_key=${weatherToken}&query=${latitude},${longitude}&units=f`
 
@@ -21,15 +21,12 @@ const weatherRequest = (longitude, latitude, callback) => {
             const temperature = data.current.temperature
             const humidity = data.current.humidity
             const feelsLike = data.current.feelslike
-            const weatherData = {
-                weather: weather.toLowerCase(),
-                temperature: temperature,
-                feelsLike: feelsLike,
-                humidity: humidity
-            }
         
-            callback(weatherData)
+            console.log('It is currently ' + weather.toLowerCase() + ' with a temperature of ' + temperature + ' degrees.')
+            console.log('It feels like ' + feelsLike + ' degrees with a humidity of ' + humidity + '%.')
         }
+
+
     })
 }
 
