@@ -6,6 +6,13 @@
 This is a command line app for fetching the current weather in a given location. 
 You can provide a location descriptor such as zip, state, city, or address and the app will fetch the current weather for that location.
 
+# Tech Used
+- Javascript
+- Node.js
+- HTTP(postman-request)
+- API(Weatherstack, Mapbox)
+- Input(prompt-sync)
+
 # Usage
 
 1. Open a terminal to the app directory
