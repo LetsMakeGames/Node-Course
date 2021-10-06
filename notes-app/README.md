@@ -4,6 +4,11 @@ This is a command line app for creating notes.
 
 It will be able to add, remove, read, and list notes.
 
+# Tech Used
+- Javascript
+- Node.js
+- Filesystem
+
 # Commands
 
 1. list
