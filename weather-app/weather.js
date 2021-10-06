@@ -9,13 +9,18 @@ const weatherRequest = (longitude, latitude, callback) => {
     request({ url: weatherURL, json: true }, (error, { body: { current:{ weather_descriptions, temperature, humidity, feelsLike }, error:res_error } }) => {
 
         if (error) {
+
             console.log('Issue connecting to weatherstack API')
             console.log('Error Code: ' + error.code)
-            console.log('Error: ' + error.error)            
+            console.log('Error: ' + error.error)
+
         } else if (res_error) {
+
             console.log('Status Code: ' + res_error.code)
             console.log('Error: ' + res_error.info)
+
         } else {
+
             const weatherData = {
                 weather: weather_descriptions[0].toLowerCase(),
                 temperature,
@@ -29,5 +34,7 @@ const weatherRequest = (longitude, latitude, callback) => {
 }
 
 module.exports = {
+
     weatherRequest: weatherRequest
+    
 }
