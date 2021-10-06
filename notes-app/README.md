@@ -6,8 +6,9 @@ It will be able to add, remove, read, and list notes.
 
 # Tech Used
 - Javascript
-- Node.js
-- Filesystem
+- Node.js (Filesystem)
+- yargs
+- chalk
 
 # Commands
 
