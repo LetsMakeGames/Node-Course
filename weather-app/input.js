@@ -7,8 +7,10 @@ const getInput = (callback) => {
     
     // prompt user for input while input is empty
     while (input === '') {
+
         console.log(chalk.red.inverse('A location is required') + '\n')
         input = prompt('Please enter your location: ')
+
     }
     
     // Generate URL friendly location for use in API call.
@@ -18,5 +20,7 @@ const getInput = (callback) => {
 }
 
 module.exports = {
+
     getInput: getInput
+    
 }
