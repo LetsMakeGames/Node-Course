@@ -7,31 +7,42 @@ const geoRequest = (location, callback) => {
 
     const geoURL = `https://api.mapbox.com/geocoding/v5/mapbox.places/${location}.json?access_token=${geoToken}&limit=1`
 
-    request({ url: geoURL, json: true }, (error, response) => {
+    request({ url: geoURL, json: true }, (error, { body: { message:error_message, features } }) => {
 
         if (error) {
+            
             console.log('Issue connecting to mapbox API')
             console.log('Error Code: ' + error.code)
             console.log(error)
-        } else if (response.body.error) {
-            console.log('Status Code: ' + response.body.code)
-            console.log('Error: ' + response.body.error)
+
+        } else if (features.length === 0) {
+
+            if (error_message !== undefined) {
+
+                console.log('Error: ' + error_message)
+
+            } else {
+
+                console.log('Error: Location Not Found')
+            }
         } else {
-            const data = response.body.features[0]
-            const longitude = data.center[0]
-            const latitude = data.center[1]
-            const place = data.place_name
+
+            const data = features[0]
+            const {center:coords, place_name:place} = data
             const geodata = {
-                longitude: longitude,
-                latitude: latitude,
-                place: place
+                longitude: coords[0],
+                latitude: coords[1],
+                place
             }
     
-            callback(geodata)            
+            callback(geodata)    
+
         }
     })
 }
 
 module.exports = {
+
     geoRequest: geoRequest
+
 }
