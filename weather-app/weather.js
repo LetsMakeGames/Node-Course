@@ -6,26 +6,21 @@ const weatherRequest = (longitude, latitude, callback) => {
 
     const weatherURL = `http://api.weatherstack.com/current?access_key=${weatherToken}&query=${latitude},${longitude}&units=f`
 
-    request({ url: weatherURL, json: true }, (error, response) => {
+    request({ url: weatherURL, json: true }, (error, { body: { current:{ weather_descriptions, temperature, humidity, feelsLike }, error:res_error } }) => {
 
         if (error) {
             console.log('Issue connecting to weatherstack API')
             console.log('Error Code: ' + error.code)
             console.log('Error: ' + error.error)            
-        } else if (response.body.error) {
-            console.log('Status Code: ' + response.body.error.code)
-            console.log('Error: ' + response.body.error.info)
+        } else if (res_error) {
+            console.log('Status Code: ' + res_error.code)
+            console.log('Error: ' + res_error.info)
         } else {
-            const data = response.body
-            const weather = data.current.weather_descriptions[0]
-            const temperature = data.current.temperature
-            const humidity = data.current.humidity
-            const feelsLike = data.current.feelslike
             const weatherData = {
-                weather: weather.toLowerCase(),
-                temperature: temperature,
-                feelsLike: feelsLike,
-                humidity: humidity
+                weather: weather_descriptions[0].toLowerCase(),
+                temperature,
+                feelsLike,
+                humidity
             }
         
             callback(weatherData)
