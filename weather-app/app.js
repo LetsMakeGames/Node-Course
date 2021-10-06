@@ -7,16 +7,16 @@ const weather = require('./weather')
 input.getInput((location) => {
 
     // Submit location to geoRequest() to get geodata for weatherRequest.
-    geomap.geoRequest(location, (geodata) => {
+    geomap.geoRequest(location, ({ longitude, latitude, place }) => {
 
-        console.log(geodata.place)
+        console.log(place)
 
         // Submit geodata coordinates to weatherRequest and report the weather
-        weather.weatherRequest(geodata.longitude, geodata.latitude, (weatherData) => {
+        weather.weatherRequest(longitude, latitude, ({ weather, temperature, feelsLike, humidity }) => {
 
             // Log a simple weather summary report.
-            console.log('It is currently ' + weatherData.weather + ' with a temperature of ' + weatherData.temperature + ' degrees.')
-            console.log('It feels like ' + weatherData.feelsLike + ' degrees with a humidity of ' + weatherData.humidity + '%.')
+            console.log('It is currently ' + weather + ' with a temperature of ' + temperature + ' degrees.')
+            console.log('It feels like ' + feelsLike + ' degrees with a humidity of ' + humidity + '%.')
 
         })
     })    
