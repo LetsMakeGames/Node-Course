@@ -2,9 +2,16 @@ const path = require('path')
 const express = require('express')
 
 const app = express()
-const publicDirPath = path.join(__dirname, '../public')
 
+// Define paths for express config
+const publicDirPath = path.join(__dirname, '../public')
+const templateDirPath = path.join(__dirname, '../templates')
+
+// Setup handlebars engine and views directory
 app.set('view engine', 'hbs')
+app.set('views', templateDirPath)
+
+// Setup static directory to serve
 app.use(express.static(publicDirPath))
 
 app.get('', (req, res) => {
@@ -22,7 +29,9 @@ app.get('/about', (req, res) => {
 
 app.get('/help', (req, res) => {
     res.render('help', {
-        title: 'The Weather App'
+        title: 'The Weather App',
+        message: `This is a simple app for fetching the current weather in a given location.
+        You can provide a location descriptor such as zip, state, city, or address and the app will fetch the current weather for that location.`
     })
 })
 
