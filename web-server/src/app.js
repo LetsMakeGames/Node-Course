@@ -1,6 +1,7 @@
 const path = require('path')
 const express = require('express')
 const hbs = require('hbs')
+const { application } = require('express')
 
 const app = express()
 
@@ -20,7 +21,8 @@ app.use(express.static(publicDirPath))
 app.get('', (req, res) => {
     res.render('index', {
         title: 'The Weather App',
-        page: 'Index',
+        page: 'Home',
+        message: 'This is the home page for The Weather App.',
         name: 'William Barnes'
     })
 })
@@ -49,6 +51,22 @@ app.get('/weather', (req, res) => {
         forecast: 'It is currently mist with a temperature of 66 degrees. It feels like undefined degrees with a humidity of 90%.',
         name: 'William Barnes'
     })
+})
+
+app.get('/help/*', (req, res) => {
+    res.render('404', {
+        title: 'The Weather App', 
+        page: '404: Help Article Not Found',
+        name: 'William Barnes'
+    }) 
+})
+
+app.get('*', (req, res) => {
+    res.render('404', {
+        title: 'The Weather App',
+        page: '404: Page Not Found',
+        name: 'William Barnes'
+    })    
 })
 
 app.listen(3000, () => {
