@@ -23,6 +23,7 @@ const geoRequest = (location, callback) => {
             } else {
 
                 callback({
+                    statusCode: '404',
                     errorMessage: 'Error: Location Not Found'
                 })
             }
