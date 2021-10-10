@@ -22,7 +22,6 @@ app.use(express.static(publicDirPath))
 
 app.get('', (req, res) => {
     res.render('index', {
-        title: 'The Weather App',
         page: 'Home',
         message: 'This is the home page for The Weather App.',
         name: 'William Barnes'
@@ -31,7 +30,6 @@ app.get('', (req, res) => {
 
 app.get('/about', (req, res) => {
     res.render('about', {
-        title: 'The Weather App',
         page: 'About',
         name: 'William Barnes'
     })
@@ -39,7 +37,6 @@ app.get('/about', (req, res) => {
 
 app.get('/help', (req, res) => {
     res.render('help', {
-        title: 'The Weather App',
         page: 'Help',
         message: `This is a simple app for fetching the current weather in a given location.
         You can provide a location descriptor such as zip, state, city, or address and the app will fetch the current weather for that location.`,
@@ -50,19 +47,24 @@ app.get('/help', (req, res) => {
 app.get('/weather', (req, res) => {
 
     if (!req.query.location) {
-        return res.send({
-            error: 'You must provide a location for weather.'
-        })
+        
+        return res.render('error', {
+            statusCode: '422',
+            error: 'You must provide a location for weather.',
+            name: 'William Barnes'
+        })  
     }
 
     geomap.geoRequest(req.query.location, (data) => {
 
-        const {longitude, latitude, place, errorMessage = undefined} = data
+        const {longitude, latitude, place, errorMessage = undefined, statusCode = undefined} = data
 
         if (errorMessage != undefined) {
 
-            return res.send({
-                error: errorMessage
+            return res.render('error', {
+                statusCode,
+                error: errorMessage,
+                name: 'William Barnes'
             })
         }
 
@@ -71,13 +73,14 @@ app.get('/weather', (req, res) => {
             const {weather, temperature, feelsLike, humidity, errorMessage = undefined, code = undefined} = data
 
             if (errorMessage) {
-                return res.send({
+                return res.render('error', {
                     statusCode: code,
-                    error: errorMessage
+                    error: errorMessage,
+                    name: 'William Barnes'
                 })
             }
             
-            res.send({
+            res.render('weather', {
                 location: place,
                 forecast: `It is currently ${weather} with a temperature of ${temperature} degrees. It feels like ${feelsLike} degrees with a humidity of ${humidity}%.`,
                 name: 'William Barnes'
@@ -87,16 +90,14 @@ app.get('/weather', (req, res) => {
 })
 
 app.get('/help/*', (req, res) => {
-    res.render('404', {
-        title: 'The Weather App', 
+    res.render('error', {
         page: '404: Help Article Not Found',
         name: 'William Barnes'
     }) 
 })
 
 app.get('*', (req, res) => {
-    res.render('404', {
-        title: 'The Weather App',
+    res.render('error', {
         page: '404: Page Not Found',
         name: 'William Barnes'
     })    
