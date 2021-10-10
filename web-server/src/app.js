@@ -1,7 +1,9 @@
+require('dotenv').config()
 const path = require('path')
 const express = require('express')
 const hbs = require('hbs')
-const { application } = require('express')
+const geomap = require('./utils/geomap')
+const weather = require('./utils/weather')
 
 const app = express()
 
@@ -46,10 +48,41 @@ app.get('/help', (req, res) => {
 })
 
 app.get('/weather', (req, res) => {
-    res.send({
-        location: 'East Lansing, MI',
-        forecast: 'It is currently mist with a temperature of 66 degrees. It feels like undefined degrees with a humidity of 90%.',
-        name: 'William Barnes'
+
+    if (!req.query.location) {
+        return res.send({
+            error: 'You must provide a location for weather.'
+        })
+    }
+
+    geomap.geoRequest(req.query.location, (data) => {
+
+        const {longitude, latitude, place, errorMessage = undefined} = data
+
+        if (errorMessage != undefined) {
+
+            return res.send({
+                error: errorMessage
+            })
+        }
+
+        weather.weatherRequest(longitude, latitude, (data) => {
+
+            const {weather, temperature, feelsLike, humidity, errorMessage = undefined, code = undefined} = data
+
+            if (errorMessage) {
+                return res.send({
+                    statusCode: code,
+                    error: errorMessage
+                })
+            }
+            
+            res.send({
+                location: place,
+                forecast: `It is currently ${weather} with a temperature of ${temperature} degrees. It feels like ${feelsLike} degrees with a humidity of ${humidity}%.`,
+                name: 'William Barnes'
+            })
+        })        
     })
 })
 
