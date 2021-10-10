@@ -73,11 +73,12 @@ app.get('/weather', (req, res) => {
             const {weather, temperature, feelsLike, humidity, errorMessage = undefined, code = undefined} = data
 
             if (errorMessage) {
+
                 return res.render('error', {
-                    statusCode: code,
-                    error: errorMessage,
-                    name: 'William Barnes'
-                })
+                    statusCode: 401,
+                    error: errorMessage,                
+                    name: 'William Barnes'                
+                })            
             }
             
             res.render('weather', {
@@ -91,16 +92,18 @@ app.get('/weather', (req, res) => {
 
 app.get('/help/*', (req, res) => {
     res.render('error', {
-        page: '404: Help Article Not Found',
+        statusCode: '404',
+        error: 'Help Article Not Found',
         name: 'William Barnes'
     }) 
 })
 
 app.get('*', (req, res) => {
     res.render('error', {
-        page: '404: Page Not Found',
+        statusCode: '404',
+        error: 'Page Not Found',
         name: 'William Barnes'
-    })    
+    })   
 })
 
 app.listen(3000, () => {
