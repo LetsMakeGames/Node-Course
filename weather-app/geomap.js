@@ -15,7 +15,7 @@ const geoRequest = (location, callback) => {
             console.log('Error Code: ' + error.code)
             console.log(error)
 
-        } else if (features.length === 0) {
+        } else if (features === undefined) {
 
             if (error_message !== undefined) {
 
