@@ -22,7 +22,9 @@ const geoRequest = (location, callback) => {
 
             } else {
 
-                console.log('Error: Location Not Found')
+                callback({
+                    errorMessage: 'Error: Location Not Found'
+                })
             }
         } else {
 
