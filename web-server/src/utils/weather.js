@@ -28,13 +28,14 @@ const weatherRequest = (longitude, latitude, callback) => {
 
         } else {
 
-            const { body: { current:{ weather_descriptions: weatherDescriptions, temperature, humidity, feelslike: feelsLike }, error:resError } } = data
+            const { body: { current:{ weather_descriptions: weatherDescriptions, weather_icons: weatherIcon, temperature, humidity, feelslike: feelsLike }, error:resError } } = data
 
             const weatherData = {
                 weather: weatherDescriptions[0].toLowerCase(),
                 temperature,
                 feelsLike,
-                humidity
+                humidity,
+                weatherIcon
             }
         
             callback(weatherData)
