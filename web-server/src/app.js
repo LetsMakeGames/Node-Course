@@ -22,8 +22,8 @@ app.use(express.static(publicDirPath))
 
 app.get('', (req, res) => {
     res.render('index', {
-        page: 'Home',
-        message: 'This is the home page for The Weather App.',
+        page: 'Weather',
+        message: 'Welcome to The Weather App!',
         name: 'William Barnes'
     })
 })
@@ -48,7 +48,7 @@ app.get('/weather', (req, res) => {
 
     if (!req.query.location) {
         
-        return res.render('error', {
+        return res.send({
             statusCode: '422',
             error: 'You must provide a location for weather.',
             name: 'William Barnes'
@@ -61,7 +61,7 @@ app.get('/weather', (req, res) => {
 
         if (errorMessage != undefined) {
 
-            return res.render('error', {
+            return res.send({
                 statusCode,
                 error: errorMessage,
                 name: 'William Barnes'
@@ -70,19 +70,20 @@ app.get('/weather', (req, res) => {
 
         weather.weatherRequest(longitude, latitude, (data) => {
 
-            const {weather, temperature, feelsLike, humidity, errorMessage = undefined, code = undefined} = data
+            const {weather, weatherIcon, temperature, feelsLike, humidity, errorMessage = undefined, code = undefined} = data
 
             if (errorMessage) {
 
-                return res.render('error', {
+                return res.send({
                     statusCode: 401,
                     error: errorMessage,                
                     name: 'William Barnes'                
                 })            
             }
             
-            res.render('weather', {
+            res.send({
                 location: place,
+                weatherIcon,
                 forecast: `It is currently ${weather} with a temperature of ${temperature} degrees. It feels like ${feelsLike} degrees with a humidity of ${humidity}%.`,
                 name: 'William Barnes'
             })
