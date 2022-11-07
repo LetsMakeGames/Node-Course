@@ -28,6 +28,7 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) =>
             age: age
         }).catch(error => {
             console.log(error);
+            return console.log('Unable to insert record!');
         });
     }
     const recordPromise = insertRecord();
@@ -44,6 +45,7 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) =>
             console.log(result);
         }).catch((error) => {
             console.log(error);
+            return console.log('Unable to find record!');
         });
     }
     findRecordByID(recordPromise);
