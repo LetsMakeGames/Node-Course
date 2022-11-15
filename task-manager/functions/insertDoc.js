@@ -1,7 +1,7 @@
 // Get input from user
-const firstName = process.argv[3];
-const lastName = process.argv[4];
-const age = process.argv[5];
+const firstName = process.argv[5];
+const lastName = process.argv[6];
+const age = process.argv[7];
 
 // Insert a single record using async/await
 const insertDoc = async (ObjectId, collection) => {
