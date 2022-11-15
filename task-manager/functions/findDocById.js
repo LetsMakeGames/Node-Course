@@ -2,7 +2,7 @@
     const findDocByID = async (promise, collection) => {
         // Resolve record promise to obtain record object
         await promise.then(async (result) => {
-            const docD = result.insertedId;
+            const docID = result.insertedId;
             // Find record by ID and return result
             result = await collection.findOne({ _id: docID }).then((result) => {
                 return result;

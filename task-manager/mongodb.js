@@ -16,14 +16,22 @@ MongoClient.connect(connectionURL, { useNewUrlParser: true }, (error, client) =>
 
     // Define database, collection, and document
     const db = client.db(databaseName);
-    const collection = db.collection('users');
+    let collection;
     let docPromise;
 
     // Insert a single record using async/await
     if (flag === 'insert') {
+        collection = db.collection('users');
         docPromise = insertDoc(ObjectId, collection);
+        
+        // Find a single record by ID and print the result to the console
+        findDocByID(docPromise, collection);
     }
 
-    // Find a single record by ID and print the result to the console
-    findDocByID(docPromise, collection);
+    if (flag === 'insertMany') {
+        collection = db.collection('tasks');
+        manyDocPromise = insertManyDocs(ObjectId ,collection);
+    }
+
+
 })
